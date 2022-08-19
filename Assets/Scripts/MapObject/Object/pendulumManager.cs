@@ -59,13 +59,6 @@ public class PendulumManager : MapObjectManager {
         }
         Invoke("Actvie", invokeTime);
     }
-    protected override void OnEnter() {
-        base.OnEnter();
-        Debug.Log("Çì");
-    }
-    protected override void OnStay() {
-        base.OnStay();
-    }
     void Update() {
         if (active) {
             time += Time.deltaTime * angleVelocity;

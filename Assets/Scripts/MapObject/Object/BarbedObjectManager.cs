@@ -2,15 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BarbedObjectManager : MonoBehaviour
-{
-    // Start is called before the first frame update
-    void Start()
-    {
+public class BarbedObjectManager : MonoBehaviour {
+    void Start() {
         
     }
-
-    // Update is called once per frame
     void Update()
     {
         
