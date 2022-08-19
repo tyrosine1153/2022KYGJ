@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 [RequireComponent(typeof(Image))]
-public class GravityPortalManager : MapObjectManager {
+[RequireComponent(typeof(RectTransform))]
+public class GravityPortalManager : MonoBehaviour {
     public Vector2 portalSize;
     public Sprite portalImage;
     void Start() {

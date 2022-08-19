@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-public class MovingSawManager : MapObjectManager {
+[RequireComponent(typeof(RectTransform))]
+public class MovingSawManager : MonoBehaviour {
     
     [Range(0, 15f)] public float speed = 5;
     public Sprite lineImage;

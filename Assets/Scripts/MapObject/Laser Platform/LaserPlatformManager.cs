@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class LaserPlatformManager : MonoBehaviour {
     public bool isBlink = false;
+    
     void Start() {
         
     }

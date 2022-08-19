@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-public class PendulumManager : MapObjectManager {
+[RequireComponent(typeof(RectTransform))]
+public class PendulumManager : MonoBehaviour {
     public float invokeTime = 0;
     [Range(0, 90f)] public float angle = 30;
     [Range(-10f, 10f)] public float angleVelocity = 0;
@@ -56,6 +57,7 @@ public class PendulumManager : MapObjectManager {
                 collider.isTrigger = true;
                 collider.size = bobSize;
             }
+            bob.AddComponent<PendulumTrigger>();
         }
         Invoke("Actvie", invokeTime);
     }

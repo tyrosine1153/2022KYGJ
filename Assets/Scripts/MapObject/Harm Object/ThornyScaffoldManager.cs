@@ -2,18 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-public class ThornyScaffoldManager : MapObjectManager {
+[RequireComponent(typeof(RectTransform))]
+public class ThornyScaffoldManager : MonoBehaviour {
     public Vector2 offSize;
     public Sprite offImage;
     public float offTime = 1;
-
     public Vector2 onSize;
     public Sprite onImage;
     public float onTime = 1;
-
     public float invokeTime = 0;
     public bool isOn = false;
 
+    //Private Value
     private Vector3 old_position, offPos, onPos;
     private RectTransform rect;
     private Image image;
