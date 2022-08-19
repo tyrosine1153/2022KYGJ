@@ -1,10 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-[RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(CapsuleCollider2D))]
-[RequireComponent(typeof(Animation))]
-[RequireComponent(typeof(AudioSource))]
 public class CharacterManager : MonoBehaviour {
     void Start() {
         
