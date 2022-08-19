@@ -73,4 +73,10 @@ public class PendulumManager : MapObjectManager {
     float GetLerpTParam() {
         return (Mathf.Sin(time) + 1) * 0.5f;
     }
+    private void OnTriggerEnter2D(Collider2D collision) {
+        Debug.Log("test");
+        if (collision.CompareTag("Player")) {
+            Debug.Log("HIT");
+        }
+    }
 }
