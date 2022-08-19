@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-public class pendulumManager : MapObjectManager {
+public class PendulumManager : MapObjectManager {
+    public float invokeTime = 0;
     [Range(0, 90f)] public float angle = 30;
     [Range(-10f, 10f)] public float angleVelocity = 0;
 
@@ -18,7 +19,7 @@ public class pendulumManager : MapObjectManager {
     public float anchorWidth = 0;
     public float anchorHeight = 0;
 
-    private float time;
+    private float time; private bool active = false;
     void Start() {
         if (anchorImage != null) {
             gameObject.AddComponent<Image>();
@@ -47,14 +48,25 @@ public class pendulumManager : MapObjectManager {
                 rect.localPosition = new Vector2(0, -rodLength / 2);
             }
             bob.AddComponent<Image>(); {
-                
+                Image image = bob.GetComponent<Image>();
+                image.sprite = bobImage;
             }
         }
+        Invoke("Actvie", invokeTime);
+    }
+    protected override void OnEnter() {
+        base.OnEnter();
+    }
+    protected override void OnStay() {
+        base.OnStay();
     }
     void Update() {
-        time += Time.deltaTime * angleVelocity;
-        transform.rotation = CalculateMovementOfPendulum();
+        if (active) {
+            time += Time.deltaTime * angleVelocity;
+            transform.rotation = CalculateMovementOfPendulum();
+        }
     }
+    private void Actvie() { active = true; }
     Quaternion CalculateMovementOfPendulum() {
         return Quaternion.Lerp(Quaternion.Euler(Vector3.forward * angle),
             Quaternion.Euler(Vector3.back * angle), GetLerpTParam());
