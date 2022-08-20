@@ -14,7 +14,7 @@ public class CharacterController : MonoBehaviour
     public int hp = 4;
     public float moveSpeed = 1f;
     public float jumpPower = 5.0f;
-    public bool isOnIce;
+    public bool canMove = true;
 
     [SerializeField] private Animator[] characterAnimators;
     private Animator _currentCharacterAnimator;
@@ -39,21 +39,26 @@ public class CharacterController : MonoBehaviour
 
     private Rigidbody2D _rigidBody;
     private Animator _animator;
-    private bool _canJump;
+    private bool _canJump = true;
     private bool _isStoryMode = true;
+    
+    private bool _isDamageIgnoreMode;
     private static readonly int StoryMode = Animator.StringToHash("StoryMode");
+    private readonly WaitForSeconds _damageIgnoreTime = new (2f);
+
 
     private void Start()
     {
         _rigidBody = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
+        canMove = true;
     }
 
     private void Update()
     {
         if (!_isStoryMode) return;
 
-        if (!isOnIce)
+        if (canMove)
         {
             _rigidBody.velocity = new Vector2(Input.GetAxis("Horizontal") * moveSpeed, _rigidBody.velocity.y);
         }
@@ -146,9 +151,6 @@ public class CharacterController : MonoBehaviour
             Die();
         }
     }
-
-    private bool _isDamageIgnoreMode = false;
-    private readonly WaitForSeconds _damageIgnoreTime = new WaitForSeconds(2f);
     private IEnumerator IgnoreDamage()
     {
         _isDamageIgnoreMode = true;
@@ -158,9 +160,17 @@ public class CharacterController : MonoBehaviour
         _isDamageIgnoreMode = false;
     }
 
-    public void KnockBack()
+    public void KnockBack(float power = 1.5f)
     {
-        _rigidBody.AddForce(_rigidBody.velocity.normalized * -1.5f, ForceMode2D.Impulse);
+        StartCoroutine(CoKnockBack(power));
+    }
+    
+    private IEnumerator CoKnockBack(float power)
+    {
+        canMove = false;
+        _rigidBody.velocity = _rigidBody.velocity.normalized * -1.5f * power;
+        yield return new WaitForSeconds(0.3f);
+        canMove = true;
     }
 
     private void Die()
