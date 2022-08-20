@@ -12,6 +12,6 @@ public class ItemManager : MonoBehaviour {
 
     }
     private void OnCollisionEnter2D(Collision2D collision) {
-        AudioManager.Instance.PlaySFX();
+        AudioManager.Instance.PlaySFX(SFXType.Gain);
     }
 }
