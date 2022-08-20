@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public enum Chracter
@@ -10,12 +11,15 @@ public enum Chracter
 
 public class CharacterController : MonoBehaviour
 {
-    public float speed = 5.0f;
+    public int hp = 4;
+    public float moveSpeed = 1f;
     public float jumpPower = 5.0f;
-    
+    public bool isOnIce;
+
     [SerializeField] private Animator[] characterAnimators;
     private Animator _currentCharacterAnimator;
     private Chracter _currentCharacter;
+
     public Chracter CurrentCharacter
     {
         get => _currentCharacter;
@@ -28,6 +32,7 @@ public class CharacterController : MonoBehaviour
             {
                 animator.gameObject.SetActive(false);
             }
+
             _currentCharacterAnimator.gameObject.SetActive(true);
         }
     }
@@ -47,8 +52,11 @@ public class CharacterController : MonoBehaviour
     private void Update()
     {
         if (!_isStoryMode) return;
-        
-        transform.Translate(Vector3.right * Input.GetAxis("Horizontal") * Time.deltaTime * speed);
+
+        if (!isOnIce)
+        {
+            _rigidBody.velocity = new Vector2(Input.GetAxis("Horizontal") * moveSpeed, _rigidBody.velocity.y);
+        }
 
         if (Input.GetKeyDown(KeyCode.Space) && _canJump)
         {
@@ -94,19 +102,19 @@ public class CharacterController : MonoBehaviour
     {
         CurrentCharacter = Chracter.Dorothy;
     }
-    
+
     [ContextMenu("Set Character 2 Scarecrow")]
     public void SetCharacter2Scarecrow()
     {
         CurrentCharacter = Chracter.Scarecrow;
     }
-    
+
     [ContextMenu("Set Character 2 TinMan")]
     public void SetCharacter2TinMan()
     {
         CurrentCharacter = Chracter.TinMan;
     }
-    
+
     [ContextMenu("Set Character 2 CowardlyLion")]
     public void SetCharacter2CowardlyLion()
     {
@@ -118,11 +126,56 @@ public class CharacterController : MonoBehaviour
     {
         SetStoryMode(true);
     }
-    
+
     [ContextMenu("Set StoryMode Off")]
     public void SetStoryModeOff()
     {
         SetStoryMode(false);
+    }
+
+    public void GetDamage()
+    {
+        if(_isDamageIgnoreMode) return;
+        
+        hp--;
+        StartCoroutine(IgnoreDamage());
+        
+        if (hp <= 0)
+        {
+            Die();
+        }
+    }
+
+    private bool _isDamageIgnoreMode = false;
+    private IEnumerator IgnoreDamage()
+    {
+        _isDamageIgnoreMode = true;
+        
+        // Blink Animation
+        yield return new WaitForSeconds(2);
+        _isDamageIgnoreMode = false;
+    }
+
+    private void Die()
+    {
+        
+    }
+
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        if (hit.gameObject.CompareTag("Box") || hit.gameObject.CompareTag("Mirror"))
+        {
+            const float force = 5;
+            var rigid = hit.collider.GetComponent<Rigidbody2D>();
+            if (rigid != null)
+            {
+                Vector2 forceDirection = hit.gameObject.transform.position - transform.position;
+                forceDirection.y = 0;
+                forceDirection.Normalize();
+
+                rigid.AddForce(forceDirection * force, ForceMode2D.Impulse);
+            }
+        }
     }
 }
 
