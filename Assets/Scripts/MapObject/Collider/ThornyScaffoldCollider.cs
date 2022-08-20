@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ThornyScaffoldTrigger : MonoBehaviour {
+public class ThornyScaffoldCollider : MonoBehaviour {
     private ThornyScaffoldManager manager;
     void Start() {
         manager = transform.parent.GetComponent<ThornyScaffoldManager>();
