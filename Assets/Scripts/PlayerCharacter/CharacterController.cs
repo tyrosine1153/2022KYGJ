@@ -101,7 +101,7 @@ public class CharacterController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Ground") && !_canJump)
+        if ((other.gameObject.CompareTag("Ground") && !_canJump) || (other.gameObject.CompareTag("Box") && !_canJump))
         {
             _rigidBody.velocity = Vector2.zero;
             _canJump = true;

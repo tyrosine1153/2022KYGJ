@@ -418,10 +418,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc365a7b97a644f4aa600f504b0c5d4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offImage: {fileID: 21300000, guid: f96b8b69b9aad1a47a34ac60e272d363, type: 3}
-  offSize: {x: 1, y: 1}
-  onImage: {fileID: 0}
-  onSize: {x: 1, y: 1}
+  offImage: {fileID: 21300000, guid: 101e5d97c192bfe43ba40894fae20767, type: 3}
+  offSize: {x: 2, y: 1}
+  onImage: {fileID: 21300000, guid: 50fa854ee0f695646885cef9a6b27e76, type: 3}
+  onSize: {x: 2, y: 2}
   force: 10
   disabledTime: 1
 --- !u!1 &332496707
@@ -640,6 +640,26 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2539156585065471968, guid: b3007a23d2d906944b9e124fcbc93858, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7255935
+      objectReference: {fileID: 0}
+    - target: {fileID: 2539156585065471968, guid: b3007a23d2d906944b9e124fcbc93858, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2539156585065471968, guid: b3007a23d2d906944b9e124fcbc93858, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2539156585065471968, guid: b3007a23d2d906944b9e124fcbc93858, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.68812364
+      objectReference: {fileID: 0}
+    - target: {fileID: 2539156585065471968, guid: b3007a23d2d906944b9e124fcbc93858, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -86.964
+      objectReference: {fileID: 0}
     - target: {fileID: 4431087616473384640, guid: b3007a23d2d906944b9e124fcbc93858, type: 3}
       propertyPath: m_Name
       value: 'Player '
@@ -658,11 +678,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4431087616473384644, guid: b3007a23d2d906944b9e124fcbc93858, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.22
+      value: -24.38
       objectReference: {fileID: 0}
     - target: {fileID: 4431087616473384644, guid: b3007a23d2d906944b9e124fcbc93858, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -11.29
+      value: -15.05
       objectReference: {fileID: 0}
     - target: {fileID: 4431087616473384644, guid: b3007a23d2d906944b9e124fcbc93858, type: 3}
       propertyPath: m_LocalPosition.z
@@ -946,7 +966,7 @@ MonoBehaviour:
   offImage: {fileID: 21300000, guid: 101e5d97c192bfe43ba40894fae20767, type: 3}
   offSize: {x: 2, y: 1}
   onImage: {fileID: 21300000, guid: 50fa854ee0f695646885cef9a6b27e76, type: 3}
-  onSize: {x: 2, y: 1.5}
+  onSize: {x: 2, y: 2}
   force: 10
   disabledTime: 1
 --- !u!1 &501684971
@@ -1155,10 +1175,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc365a7b97a644f4aa600f504b0c5d4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offImage: {fileID: 0}
-  offSize: {x: 1, y: 1}
-  onImage: {fileID: 0}
-  onSize: {x: 1, y: 1}
+  offImage: {fileID: 21300000, guid: 101e5d97c192bfe43ba40894fae20767, type: 3}
+  offSize: {x: 2, y: 1}
+  onImage: {fileID: 21300000, guid: 50fa854ee0f695646885cef9a6b27e76, type: 3}
+  onSize: {x: 2, y: 2}
   force: 10
   disabledTime: 1
 --- !u!1 &699510032
@@ -20328,14 +20348,14 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2002615849}
-  m_BodyType: 0
+  m_BodyType: 2
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_AngularDrag: 0
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1

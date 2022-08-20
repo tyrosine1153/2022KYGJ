@@ -31,6 +31,7 @@ public class JumpingPodManager : MonoBehaviour {
             RectTransform rect = child.GetComponent<RectTransform>();
             rect.localScale = Vector3.one;
             rect.localPosition = new Vector2(0, (onSize.y - offSize.y) / 2);
+            rect.sizeDelta = onSize;
         }
         child.AddComponent<Image>(); {
             image = child.GetComponent<Image>();
@@ -40,7 +41,7 @@ public class JumpingPodManager : MonoBehaviour {
     private void Update() {
         time += Time.deltaTime;
         if (time >= disabledTime) {
-            image.enabled = false;
+            image.enabled = false; GetComponent<Image>().enabled = true;
         }
     }
     private void OnCollisionEnter2D(Collision2D collision) {
@@ -48,7 +49,7 @@ public class JumpingPodManager : MonoBehaviour {
             if (collision.collider.GetComponent<Rigidbody2D>() != null) {
                 time = 0;
                 collision.collider.GetComponent<Rigidbody2D>().AddForce(Vector2.up * force, ForceMode2D.Impulse);
-                image.enabled = true;
+                image.enabled = true; GetComponent<Image>().enabled = false;
             }
         }
     }
