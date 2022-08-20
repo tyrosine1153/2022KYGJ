@@ -50,6 +50,9 @@ public class CharacterController : MonoBehaviour
     {
         _rigidBody = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
+        
+        CurrentCharacter = Chracter.Dorothy;
+        hp = GameManager.Instance.savedHp;
     }
 
     private void Update()
