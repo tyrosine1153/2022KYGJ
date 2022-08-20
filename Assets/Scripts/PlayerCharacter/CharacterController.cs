@@ -138,6 +138,7 @@ public class CharacterController : MonoBehaviour
         if(_isDamageIgnoreMode) return;
         
         hp--;
+        KnockBack();
         StartCoroutine(IgnoreDamage());
         
         if (hp <= 0)
@@ -147,13 +148,19 @@ public class CharacterController : MonoBehaviour
     }
 
     private bool _isDamageIgnoreMode = false;
+    private readonly WaitForSeconds _damageIgnoreTime = new WaitForSeconds(2f);
     private IEnumerator IgnoreDamage()
     {
         _isDamageIgnoreMode = true;
         
         // Blink Animation
-        yield return new WaitForSeconds(2);
+        yield return _damageIgnoreTime;
         _isDamageIgnoreMode = false;
+    }
+
+    public void KnockBack()
+    {
+        _rigidBody.AddForce(_rigidBody.velocity.normalized * -1.5f, ForceMode2D.Impulse);
     }
 
     private void Die()
