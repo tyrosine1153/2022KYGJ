@@ -132,7 +132,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6572683209556263568, guid: d27856968e0f0c04a97bcf38bfb981f2, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 6572683209556263568, guid: d27856968e0f0c04a97bcf38bfb981f2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -233,10 +233,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc365a7b97a644f4aa600f504b0c5d4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offImage: {fileID: 0}
-  offSize: {x: 1, y: 2}
-  onImage: {fileID: 0}
-  onSize: {x: 2, y: 1}
+  offImage: {fileID: 21300000, guid: 5b14010665551ad408b685cc866347da, type: 3}
+  offSize: {x: 2, y: 1}
+  onImage: {fileID: 21300000, guid: 5b14010665551ad408b685cc866347da, type: 3}
+  onSize: {x: 2, y: 2}
   force: 10
   disabledTime: 1
 --- !u!1 &330323694
@@ -274,7 +274,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 64, y: -10.3}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &330323696
 MonoBehaviour:
@@ -291,10 +291,10 @@ MonoBehaviour:
   invokeTime: 0
   angle: 90
   angleVelocity: 2
-  rodImage: {fileID: 0}
+  rodImage: {fileID: 21300000, guid: 8ea2e7c13ddfb9342baf58c8353b7262, type: 3}
   rodLength: 3
   rodThickness: 0.4
-  bobImage: {fileID: 0}
+  bobImage: {fileID: 21300000, guid: 76ee4c7d7cd5e28428002cf0ad8aeaed, type: 3}
   bobSize: {x: 4, y: 2}
   anchorImage: {fileID: 0}
   anchorSize: {x: 0, y: 0}
@@ -886,7 +886,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -13, y: -17}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 8, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &690969173
 MonoBehaviour:
@@ -1093,7 +1093,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 50, y: -10.3}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1013729241
 MonoBehaviour:
@@ -1110,10 +1110,10 @@ MonoBehaviour:
   invokeTime: 0
   angle: 90
   angleVelocity: 2
-  rodImage: {fileID: 0}
+  rodImage: {fileID: 21300000, guid: b383033984cf9094e836056db33eaf01, type: 3}
   rodLength: 3
   rodThickness: 0.4
-  bobImage: {fileID: 0}
+  bobImage: {fileID: 21300000, guid: 7746596e6e078e344a4d52f7f6631c2a, type: 3}
   bobSize: {x: 4, y: 2}
   anchorImage: {fileID: 0}
   anchorSize: {x: 0, y: 0}
@@ -2009,10 +2009,10 @@ MonoBehaviour:
   invokeTime: 0
   angle: 90
   angleVelocity: 2
-  rodImage: {fileID: 0}
+  rodImage: {fileID: 21300000, guid: 8ea2e7c13ddfb9342baf58c8353b7262, type: 3}
   rodLength: 3
   rodThickness: 0.4
-  bobImage: {fileID: 0}
+  bobImage: {fileID: 21300000, guid: 7746596e6e078e344a4d52f7f6631c2a, type: 3}
   bobSize: {x: 4, y: 2}
   anchorImage: {fileID: 0}
   anchorSize: {x: 0, y: 0}
@@ -103762,7 +103762,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 9.5, y: -16.5}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 15, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2044382435
 MonoBehaviour:
