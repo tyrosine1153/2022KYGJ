@@ -12,9 +12,9 @@ public class PlatformCollider : MonoBehaviour {
         GetComponent<BoxCollider2D>().enabled = true;
         GetComponent<Image>().enabled = true;
     }
-    private PlatformManager manager;
+    private MovingPlatformManager manager;
     private void Start() {
-        manager = this.transform.parent.GetComponent<PlatformManager>();
+        manager = this.transform.parent.GetComponent<MovingPlatformManager>();
     }
     private void OnCollisionEnter2D(Collision2D collision) {
         if (manager.isbreaking) {
