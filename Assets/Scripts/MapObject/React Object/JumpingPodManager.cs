@@ -17,7 +17,7 @@ public class JumpingPodManager : MonoBehaviour {
         gameObject.GetComponent<RectTransform>().sizeDelta = offSize;
         gameObject.AddComponent<BoxCollider2D>(); {
             BoxCollider2D collider = GetComponent<BoxCollider2D>();
-            collider.size = offSize * 100;
+            collider.size = offSize;
         }
         gameObject.AddComponent<Image>();
         gameObject.GetComponent<Image>().sprite = offImage;
