@@ -4,13 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 public class XmlLoader : MonoBehaviour {
     void Start() {
-        XmlDocument doc = new XmlDocument();
+        /*XmlDocument doc = new XmlDocument();
         doc.LoadXml(Resources.Load<TextAsset>("Text/TalkData").text);
         foreach (XmlElement child in doc["Data"]) {
             int index = XmlConvert.ToInt32(child.GetAttribute("index"));
             TalkData data = new TalkData(child);
             DB.talk.Add(index, data);
-        }
+        }*/
     }
     void Update() {
         

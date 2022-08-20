@@ -77,6 +77,7 @@ public class CinematicCanvas : MonoBehaviour
         if (_currentDialogueIndex >= Dialog.Length)
         {
             SceneManagerEx.Instance.LoadScene(SceneType.Stage1);
+            GameManager.Instance.GameStart();
         }
         else
         {
