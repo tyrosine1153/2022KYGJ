@@ -5,12 +5,9 @@ using UnityEngine;
 public class Sentence : MonoBehaviour
 {
     public string[] sentence;
-        
-    void Update()
+
+    void Start()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            DialougeManager.Instance.OnDialogue(sentence);
-        }
+        DialougeManager.Instance.OnDialogue(sentence);
     }
 }

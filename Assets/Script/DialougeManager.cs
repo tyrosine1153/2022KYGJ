@@ -7,12 +7,11 @@ using TMPro;
 public class DialougeManager : MonoBehaviour
 {
     public TextMeshProUGUI sentence_txt;
+    public TextMeshProUGUI Name_Txt;
     public CanvasGroup CG;
     public Canvas Cvs;
     public Queue<string> sentence = new Queue<string>();
     public GameObject Arrow;
-    public TextMeshProUGUI Name_Txt;
-    public List<string> Name = new List<string>();
 
     [Header("타이핑 관련")]
     [HideInInspector] public bool istyping;
