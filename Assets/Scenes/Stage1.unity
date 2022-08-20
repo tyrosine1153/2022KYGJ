@@ -85632,7 +85632,7 @@ Transform:
   m_Children:
   - {fileID: 9215883923496147708}
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1491318799691822615
 BoxCollider2D:
@@ -85797,6 +85797,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2816b36503698d4489142f85f89bcc6e, type: 3}
+--- !u!1 &8351935544211590537 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8351935544192813742, guid: 2816b36503698d4489142f85f89bcc6e, type: 3}
+  m_PrefabInstance: {fileID: 8351935544211590536}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8351935544211590538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8351935544211590537}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4d9c453cec83ed4382739157a0731dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &9215883923496147706
 PrefabInstance:
   m_ObjectHideFlags: 0
