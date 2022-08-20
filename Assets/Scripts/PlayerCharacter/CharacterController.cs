@@ -53,6 +53,8 @@ public class CharacterController : MonoBehaviour
     private static readonly Quaternion DefaultRotation = Quaternion.Euler(0, 0, 0);
     private static readonly Quaternion FlipRotation = Quaternion.Euler(0, 180, 0);
     private static readonly int Dead = Animator.StringToHash("Dead");
+    private static readonly int Attack = Animator.StringToHash("Attack");
+    private static readonly int Blink = Animator.StringToHash("Blink");
 
     private void Start()
     {
@@ -60,7 +62,7 @@ public class CharacterController : MonoBehaviour
         _animator = GetComponent<Animator>();
         canMove = true;
         CurrentCharacter = Chracter.Dorothy;
-        hp = GameManager.Instance.savedHp;
+        hp = GameManager.Instance.savedHp == 0 ? 4 : GameManager.Instance.savedHp;
     }
 
     private void Update()
@@ -120,7 +122,7 @@ public class CharacterController : MonoBehaviour
                 barricade.Hit();
                 _isCoolDown = false;
                 StartCoroutine(CoCoolDown(0.5f));
-                // 대충 애니메이션
+                _currentCharacterAnimator.SetTrigger(Attack);
             }
         }
     }
@@ -196,8 +198,7 @@ public class CharacterController : MonoBehaviour
     private IEnumerator IgnoreDamage()
     {
         _isDamageIgnoreMode = true;
-
-        // Todo : Blink Animation
+        _currentCharacterAnimator.SetTrigger(Blink);
         yield return _damageIgnoreTime;
         _isDamageIgnoreMode = false;
     }
