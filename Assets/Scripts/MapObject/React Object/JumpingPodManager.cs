@@ -11,6 +11,7 @@ public class JumpingPodManager : MonoBehaviour {
     public float force;
     public float disabledTime = 1;
     private float time = 0;
+    private Image image;
     void Start() {
         gameObject.name = "[Object] JumpingPod";
         //parent Object setting
@@ -25,11 +26,21 @@ public class JumpingPodManager : MonoBehaviour {
         //Child Object setting
 
         GameObject child = new GameObject("Child");
+        child.transform.parent = this.transform;
+        child.AddComponent<RectTransform>(); {
+            RectTransform rect = child.GetComponent<RectTransform>();
+            rect.localScale = Vector3.one;
+            rect.localPosition = new Vector2(0, (onSize.y - offSize.y) / 2);
+        }
+        child.AddComponent<Image>(); {
+            image = child.GetComponent<Image>();
+            image.sprite = onImage;
+        }
     }
     private void Update() {
         time += Time.deltaTime;
         if (time >= disabledTime) {
-            GetComponent<Image>().sprite = offImage;
+            image.enabled = false;
         }
     }
     private void OnCollisionEnter2D(Collision2D collision) {
@@ -37,7 +48,7 @@ public class JumpingPodManager : MonoBehaviour {
             if (collision.collider.GetComponent<Rigidbody2D>() != null) {
                 time = 0;
                 collision.collider.GetComponent<Rigidbody2D>().AddForce(Vector2.up * force, ForceMode2D.Impulse);
-                GetComponent<Image>().sprite = onImage;
+                image.enabled = true;
             }
         }
     }
