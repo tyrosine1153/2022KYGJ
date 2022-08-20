@@ -9,6 +9,7 @@ public class MirrorManager : MonoBehaviour {
     }
 
     void Start() {
+        this.gameObject.tag = "Mirror";
         GameObject laser = new GameObject("Laser");
         laser.transform.parent = this.transform;
         

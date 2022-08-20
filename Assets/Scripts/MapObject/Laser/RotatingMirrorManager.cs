@@ -3,5 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class RotatingMirrorManager : MirrorManager {
-
+    private void Update() {
+    }
 }

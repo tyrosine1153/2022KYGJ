@@ -12,10 +12,15 @@ public class MovingSawManager : MonoBehaviour {
     public float length = 0;
     public float height = 0;
     public float radius = 0;
+    public Half usingSpot;
+
+    public enum Half {
+        Upper, Lower
+    }
     public enum Position { Left, Right, Center }
     Rigidbody2D rigid; RectTransform rect;
     void Start() {
-        this.gameObject.name = "Moving Saw Parent";
+        this.gameObject.name = "[Obstacle] Moving Saw Parent";
         if (lineImage != null) {
             this.gameObject.AddComponent<Image>();
             this.gameObject.GetComponent<Image>().sprite = lineImage;
@@ -44,10 +49,10 @@ public class MovingSawManager : MonoBehaviour {
                 Image image = saw.GetComponent<Image>();
                 image.sprite = sawImage;
             }
-            saw.AddComponent<CircleCollider2D>(); {
-                CircleCollider2D collider = saw.GetComponent<CircleCollider2D>();
-                collider.isTrigger = true;
-                collider.radius = radius;
+            saw.AddComponent<BoxCollider2D>(); {
+                BoxCollider2D collider = saw.GetComponent<BoxCollider2D>();
+                collider.offset = new Vector2(0, usingSpot == Half.Upper ? radius / 2 : -radius / 2);
+                collider.size = new Vector2(radius * 2, radius);
             }
             saw.SetActive(true);
             rigid = saw.GetComponent<Rigidbody2D>();

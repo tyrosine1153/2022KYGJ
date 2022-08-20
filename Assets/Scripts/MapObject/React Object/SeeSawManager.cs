@@ -12,7 +12,7 @@ public class SeeSawManager : MonoBehaviour {
     private Rigidbody2D parentRigid;
     private RectTransform parentRect, rect;
     void Start() {
-        this.gameObject.name = "SeeSaw Lever";
+        gameObject.name = "[Object] SeeSaw";
         //Parent [Lever] Setting
         gameObject.AddComponent<Rigidbody2D>(); {
             parentRigid = GetComponent<Rigidbody2D>();
@@ -41,9 +41,5 @@ public class SeeSawManager : MonoBehaviour {
         }
         child.AddComponent<Image>();
         child.GetComponent<Image>().sprite = FulcrumImage;
-    }
-    void Update()
-    {
-        
     }
 }
