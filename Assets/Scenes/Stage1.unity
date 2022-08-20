@@ -825,9 +825,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   offImage: {fileID: 0}
+<<<<<<< Updated upstream
   offSize: {x: 0.01, y: 0.01}
   onImage: {fileID: 0}
   onSize: {x: 0.01, y: 0.01}
+=======
+  offSize: {x: 1, y: 1}
+  onImage: {fileID: 0}
+  onSize: {x: 1, y: 1}
+>>>>>>> Stashed changes
   force: 30
   disabledTime: 1
 --- !u!1 &501684971
