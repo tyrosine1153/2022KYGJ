@@ -236,7 +236,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d864eb11c8374cd1b5a51aec7b09a70c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dontDestroyOnLoad: 0
+  dontDestroyOnLoad: 1
   savedStageId: 0
   savedHp: 0
   savedQuestId: 0
