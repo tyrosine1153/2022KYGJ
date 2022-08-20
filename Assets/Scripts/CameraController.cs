@@ -1,4 +1,5 @@
 using UnityEngine;
+
 public class CameraController : MonoBehaviour
 {
     private Transform _characterTransform;
