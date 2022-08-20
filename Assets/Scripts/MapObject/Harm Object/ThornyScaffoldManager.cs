@@ -17,9 +17,11 @@ public class ThornyScaffoldManager : MonoBehaviour {
     private Vector3 old_position, offPos, onPos;
     private RectTransform rect;
     private Image image;
+    private BoxCollider2D collider;
     private float time = 0, gap = 0;
     private bool active = false;
     void Start() {
+        gameObject.name = "[Obstacle] Thorny Scaffold";
         old_position = GetComponent<RectTransform>().localPosition;
         gap = onSize.y / 2 - offSize.y / 2;
         offPos = old_position;
@@ -30,6 +32,9 @@ public class ThornyScaffoldManager : MonoBehaviour {
         this.gameObject.AddComponent<Image>();
         image = GetComponent<Image>();
         image.sprite = isOn ? onImage : offImage;
+        this.gameObject.AddComponent<BoxCollider2D>();
+        collider = GetComponent<BoxCollider2D>();
+        collider.size = isOn? onSize : offSize;
         Invoke("Active", invokeTime);
     }
     private void Active() {

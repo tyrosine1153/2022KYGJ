@@ -8,6 +8,7 @@ public class LaserDeviceManager : MonoBehaviour {
     public Vector2 laserDeviceSize;
     public float laserThickness;
     public Sprite laserImage;
+    public float maxDistance;
     public enum Direction {
         Up, Right, Left, Down
     }
@@ -32,13 +33,14 @@ public class LaserDeviceManager : MonoBehaviour {
 
     }
     void Update() {
-        RaycastHit2D ray = Physics2D.Raycast(GetComponent<RectTransform>().localPosition, unitVector[direction], 50000f);
+        RaycastHit2D ray = Physics2D.Raycast(GetComponent<RectTransform>().localPosition, unitVector[direction], maxDistance);
         if (ray.collider != null) {
             switch (ray.collider.gameObject.tag) {
-                case "Mirror":
-                    ray.collider.GetComponent<MirrorManager>();
-                    break;
+                case "Mirror": ray.collider.GetComponent<MirrorManager>().DrawLaser(unitVector[direction]); break;
                 case "Player":
+                    if (ray.collider.GetComponent<CharacterController>().CurrentCharacter != Chracter.Scarecrow) {
+                        ray.collider.GetComponent<CharacterController>().GetDamage();
+                    }
                     break;
             }
         }
