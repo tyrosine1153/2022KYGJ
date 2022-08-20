@@ -28,7 +28,6 @@ public class LaserDeviceManager : MonoBehaviour {
         if (ray.collider != null) {
             switch (ray.collider.gameObject.tag) {
                 case "Mirror":
-                    ray.collider.GetComponent<MirrorManager>();
                     break;
                 case "Player":
                     break;
