@@ -41,7 +41,10 @@ public class CharacterController : MonoBehaviour
     private Animator _animator;
     private bool _canJump;
     private bool _isStoryMode = true;
+    private bool _isDamageIgnoreMode = false;
+    private readonly WaitForSeconds _damageIgnoreTime = new WaitForSeconds(2f);
     private static readonly int StoryMode = Animator.StringToHash("StoryMode");
+    private static readonly int Dead = Animator.StringToHash("Dead");
 
     private void Start()
     {
@@ -147,13 +150,11 @@ public class CharacterController : MonoBehaviour
         }
     }
 
-    private bool _isDamageIgnoreMode = false;
-    private readonly WaitForSeconds _damageIgnoreTime = new WaitForSeconds(2f);
     private IEnumerator IgnoreDamage()
     {
         _isDamageIgnoreMode = true;
         
-        // Blink Animation
+        // Todo : Blink Animation
         yield return _damageIgnoreTime;
         _isDamageIgnoreMode = false;
     }
@@ -165,7 +166,7 @@ public class CharacterController : MonoBehaviour
 
     private void Die()
     {
-        
+        _animator.SetTrigger(Dead);
     }
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
