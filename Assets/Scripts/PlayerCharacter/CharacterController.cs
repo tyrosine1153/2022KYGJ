@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -14,7 +15,7 @@ public class CharacterController : MonoBehaviour
     public int hp = 4;
     public float moveSpeed = 1f;
     public float jumpPower = 5.0f;
-    public bool isOnIce;
+    public bool canMove = true;
 
     [SerializeField] private Animator[] characterAnimators;
     private Animator _currentCharacterAnimator;
@@ -39,28 +40,44 @@ public class CharacterController : MonoBehaviour
 
     private Rigidbody2D _rigidBody;
     private Animator _animator;
-    private bool _canJump;
+    private bool _canJump = true;
     private bool _isStoryMode = true;
+    private bool _isCoolDown = true;
+
+    private bool _isDamageIgnoreMode;
     private static readonly int StoryMode = Animator.StringToHash("StoryMode");
+    private readonly WaitForSeconds _damageIgnoreTime = new (2f);
+    private static readonly int IsWalking = Animator.StringToHash("IsWalking");
+    private static readonly int Jump = Animator.StringToHash("Jump");
+    private static readonly int Dead = Animator.StringToHash("Dead");
+
+    private static readonly Quaternion DefaultRotation = Quaternion.Euler(0, 0, 0);
+    private static readonly Quaternion FlipRotation = Quaternion.Euler(0, 180, 0);
 
     private void Start()
     {
         _rigidBody = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
+        canMove = true;
+        CurrentCharacter = Chracter.Dorothy;
     }
 
     private void Update()
     {
         if (!_isStoryMode) return;
 
-        if (!isOnIce)
+        var horizontal = Input.GetAxis("Horizontal");
+        if (canMove)
         {
-            _rigidBody.velocity = new Vector2(Input.GetAxis("Horizontal") * moveSpeed, _rigidBody.velocity.y);
+            _rigidBody.velocity = new Vector2(horizontal * moveSpeed, _rigidBody.velocity.y);
         }
+        _currentCharacterAnimator.SetBool(IsWalking, Mathf.Abs(horizontal) > 0.2f);
+        _currentCharacterAnimator.transform.localRotation = horizontal < 0 ? DefaultRotation : FlipRotation;
 
         if (Input.GetKeyDown(KeyCode.Space) && _canJump)
         {
             _rigidBody.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
+            _currentCharacterAnimator.SetTrigger(Jump);
             _canJump = false;
         }
 
@@ -91,11 +108,92 @@ public class CharacterController : MonoBehaviour
         }
     }
 
+    private void OnCollisionStay2D(Collision2D other)
+    {
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            var barricade = other.gameObject.GetComponent<Barricade>();
+            if (barricade && CurrentCharacter == Chracter.TinMan && _isCoolDown)
+            {
+                barricade.Hit();
+                _isCoolDown = false;
+                StartCoroutine(CoCoolDown(0.5f));
+                // 대충 애니메이션
+            }
+        }
+    }
+
+    private IEnumerator CoCoolDown(float time)
+    {
+        yield return new WaitForSeconds(time);
+        _isCoolDown = true;
+    }
+
     public void SetStoryMode(bool isOn)
     {
         _animator.SetBool(StoryMode, isOn);
         _isStoryMode = isOn;
     }
+
+    public void GetDamage()
+    {
+        if(_isDamageIgnoreMode) return;
+        
+        hp--;
+        KnockBack();
+        StartCoroutine(IgnoreDamage());
+        
+        if (hp <= 0)
+        {
+            Die();
+        }
+    }
+    
+    private IEnumerator IgnoreDamage()
+    {
+        _isDamageIgnoreMode = true;
+        
+        // Blink Animation
+        yield return _damageIgnoreTime;
+        _isDamageIgnoreMode = false;
+    }
+
+    public void KnockBack(float power = 1.5f)
+    {
+        StartCoroutine(CoKnockBack(power));
+    }
+    
+    private IEnumerator CoKnockBack(float power)
+    {
+        canMove = false;
+        _rigidBody.velocity = _rigidBody.velocity.normalized * -1.5f * power;
+        yield return new WaitForSeconds(0.3f);
+        canMove = true;
+    }
+
+    private void Die()
+    {
+        _currentCharacterAnimator.SetTrigger(Dead);
+    }
+
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        if (hit.gameObject.CompareTag("Box") || hit.gameObject.CompareTag("Mirror"))
+        {
+            const float force = 5;
+            var rigid = hit.collider.GetComponent<Rigidbody2D>();
+            if (rigid != null)
+            {
+                Vector2 forceDirection = hit.gameObject.transform.position - transform.position;
+                forceDirection.y = 0;
+                forceDirection.Normalize();
+
+                rigid.AddForce(forceDirection * force, ForceMode2D.Impulse);
+            }
+        }
+    }
+
+    #region Context Menu
 
     [ContextMenu("Set Character 2 Dorothy")]
     public void SetCharacter2Dorothy()
@@ -133,56 +231,12 @@ public class CharacterController : MonoBehaviour
         SetStoryMode(false);
     }
 
-    public void GetDamage()
+    [ContextMenu("Set Die")]
+    public void SetDie()
     {
-        if(_isDamageIgnoreMode) return;
-        
-        hp--;
-        KnockBack();
-        StartCoroutine(IgnoreDamage());
-        
-        if (hp <= 0)
-        {
-            Die();
-        }
+        Die();
     }
 
-    private bool _isDamageIgnoreMode = false;
-    private readonly WaitForSeconds _damageIgnoreTime = new WaitForSeconds(2f);
-    private IEnumerator IgnoreDamage()
-    {
-        _isDamageIgnoreMode = true;
-        
-        // Blink Animation
-        yield return _damageIgnoreTime;
-        _isDamageIgnoreMode = false;
-    }
-
-    public void KnockBack()
-    {
-        _rigidBody.AddForce(_rigidBody.velocity.normalized * -1.5f, ForceMode2D.Impulse);
-    }
-
-    private void Die()
-    {
-        
-    }
-
-    private void OnControllerColliderHit(ControllerColliderHit hit)
-    {
-        if (hit.gameObject.CompareTag("Box") || hit.gameObject.CompareTag("Mirror"))
-        {
-            const float force = 5;
-            var rigid = hit.collider.GetComponent<Rigidbody2D>();
-            if (rigid != null)
-            {
-                Vector2 forceDirection = hit.gameObject.transform.position - transform.position;
-                forceDirection.y = 0;
-                forceDirection.Normalize();
-
-                rigid.AddForce(forceDirection * force, ForceMode2D.Impulse);
-            }
-        }
-    }
+    #endregion
 }
 
