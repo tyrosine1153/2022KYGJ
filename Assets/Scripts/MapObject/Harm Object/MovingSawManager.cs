@@ -39,6 +39,11 @@ public class MovingSawManager : MonoBehaviour {
                 }
                 rect.sizeDelta = new Vector2(radius * 2, radius * 2);
             }
+            saw.AddComponent<Animation>(); {
+                Animation animation = saw.GetComponent<Animation>();
+                animation.clip = Resources.Load<AnimationClip>("Animation/Button/rotation");
+                animation.Play();
+            }
             saw.AddComponent<Rigidbody2D>(); {
                 Rigidbody2D rigid = saw.GetComponent<Rigidbody2D>();
                 rigid.drag = 0;
