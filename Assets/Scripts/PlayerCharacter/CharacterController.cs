@@ -45,27 +45,37 @@ public class CharacterController : MonoBehaviour
     private bool _isDamageIgnoreMode;
     private static readonly int StoryMode = Animator.StringToHash("StoryMode");
     private readonly WaitForSeconds _damageIgnoreTime = new (2f);
+    private static readonly int IsWalking = Animator.StringToHash("IsWalking");
+    private static readonly int Jump = Animator.StringToHash("Jump");
+    private static readonly int Dead = Animator.StringToHash("Dead");
 
+    private static readonly Quaternion DefaultRotation = Quaternion.Euler(0, 0, 0);
+    private static readonly Quaternion FlipRotation = Quaternion.Euler(0, 180, 0);
 
     private void Start()
     {
         _rigidBody = GetComponent<Rigidbody2D>();
         _animator = GetComponent<Animator>();
         canMove = true;
+        CurrentCharacter = Chracter.Dorothy;
     }
 
     private void Update()
     {
         if (!_isStoryMode) return;
 
+        var horizontal = Input.GetAxis("Horizontal");
         if (canMove)
         {
-            _rigidBody.velocity = new Vector2(Input.GetAxis("Horizontal") * moveSpeed, _rigidBody.velocity.y);
+            _rigidBody.velocity = new Vector2(horizontal * moveSpeed, _rigidBody.velocity.y);
         }
+        _currentCharacterAnimator.SetBool(IsWalking, Mathf.Abs(horizontal) > 0.2f);
+        _currentCharacterAnimator.transform.localRotation = horizontal < 0 ? DefaultRotation : FlipRotation;
 
         if (Input.GetKeyDown(KeyCode.Space) && _canJump)
         {
             _rigidBody.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
+            _currentCharacterAnimator.SetTrigger(Jump);
             _canJump = false;
         }
 
@@ -100,42 +110,6 @@ public class CharacterController : MonoBehaviour
     {
         _animator.SetBool(StoryMode, isOn);
         _isStoryMode = isOn;
-    }
-
-    [ContextMenu("Set Character 2 Dorothy")]
-    public void SetCharacter2Dorothy()
-    {
-        CurrentCharacter = Chracter.Dorothy;
-    }
-
-    [ContextMenu("Set Character 2 Scarecrow")]
-    public void SetCharacter2Scarecrow()
-    {
-        CurrentCharacter = Chracter.Scarecrow;
-    }
-
-    [ContextMenu("Set Character 2 TinMan")]
-    public void SetCharacter2TinMan()
-    {
-        CurrentCharacter = Chracter.TinMan;
-    }
-
-    [ContextMenu("Set Character 2 CowardlyLion")]
-    public void SetCharacter2CowardlyLion()
-    {
-        CurrentCharacter = Chracter.CowardlyLion;
-    }
-
-    [ContextMenu("Set StoryMode On")]
-    public void SetStoryModeOn()
-    {
-        SetStoryMode(true);
-    }
-
-    [ContextMenu("Set StoryMode Off")]
-    public void SetStoryModeOff()
-    {
-        SetStoryMode(false);
     }
 
     public void GetDamage()
@@ -175,7 +149,7 @@ public class CharacterController : MonoBehaviour
 
     private void Die()
     {
-        
+        _currentCharacterAnimator.SetTrigger(Dead);
     }
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
@@ -194,5 +168,51 @@ public class CharacterController : MonoBehaviour
             }
         }
     }
+
+    #region Context Menu
+
+    [ContextMenu("Set Character 2 Dorothy")]
+    public void SetCharacter2Dorothy()
+    {
+        CurrentCharacter = Chracter.Dorothy;
+    }
+
+    [ContextMenu("Set Character 2 Scarecrow")]
+    public void SetCharacter2Scarecrow()
+    {
+        CurrentCharacter = Chracter.Scarecrow;
+    }
+
+    [ContextMenu("Set Character 2 TinMan")]
+    public void SetCharacter2TinMan()
+    {
+        CurrentCharacter = Chracter.TinMan;
+    }
+
+    [ContextMenu("Set Character 2 CowardlyLion")]
+    public void SetCharacter2CowardlyLion()
+    {
+        CurrentCharacter = Chracter.CowardlyLion;
+    }
+
+    [ContextMenu("Set StoryMode On")]
+    public void SetStoryModeOn()
+    {
+        SetStoryMode(true);
+    }
+
+    [ContextMenu("Set StoryMode Off")]
+    public void SetStoryModeOff()
+    {
+        SetStoryMode(false);
+    }
+
+    [ContextMenu("Set Die")]
+    public void SetDie()
+    {
+        Die();
+    }
+
+    #endregion
 }
 
