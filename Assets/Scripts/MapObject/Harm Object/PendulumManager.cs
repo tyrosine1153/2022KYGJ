@@ -31,8 +31,8 @@ public class PendulumManager : MonoBehaviour {
             rod.AddComponent<RectTransform>(); {
                 RectTransform rect = rod.GetComponent<RectTransform>();
                 rect.localScale = Vector3.one;
-                rect.sizeDelta = new Vector2(rodThickness, rodLength);
-                rect.localPosition = new Vector2(0, -rodLength / 2);
+                rect.sizeDelta = new Vector2(rodThickness * 100, rodLength * 100);
+                rect.localPosition = new Vector2(0, -rodLength * 100 / 2);
             }
             rod.AddComponent<Image>(); {
                 Image image = rod.GetComponent<Image>();
@@ -45,8 +45,8 @@ public class PendulumManager : MonoBehaviour {
             bob.AddComponent<RectTransform>(); {
                 RectTransform rect = bob.GetComponent<RectTransform>();
                 rect.localScale = Vector3.one;
-                rect.sizeDelta = bobSize;
-                rect.localPosition = new Vector2(0, -rodLength / 2);
+                rect.sizeDelta = bobSize * 100;
+                rect.localPosition = new Vector2(0, -rodLength * 100 / 2);
             }
             bob.AddComponent<Image>(); {
                 Image image = bob.GetComponent<Image>();
@@ -54,7 +54,7 @@ public class PendulumManager : MonoBehaviour {
             }
             bob.AddComponent<BoxCollider2D>(); {
                 BoxCollider2D collider = bob.GetComponent<BoxCollider2D>();
-                collider.size = bobSize;
+                collider.size = bobSize * 100;
             }
             bob.AddComponent<PendulumCollider>();
         }

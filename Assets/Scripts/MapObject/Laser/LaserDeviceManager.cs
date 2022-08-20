@@ -35,6 +35,8 @@ public class LaserDeviceManager : MonoBehaviour {
     void Update() {
         RaycastHit2D ray = Physics2D.Raycast(GetComponent<RectTransform>().localPosition, unitVector[direction], maxDistance);
         if (ray.collider != null) {
+            switch (direction) {
+            }
             switch (ray.collider.gameObject.tag) {
                 case "Mirror": ray.collider.GetComponent<MirrorManager>().DrawLaser(unitVector[direction]); break;
                 case "Player":

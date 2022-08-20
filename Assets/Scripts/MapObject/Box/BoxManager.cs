@@ -10,8 +10,10 @@ public class BoxManager : MonoBehaviour {
         Debug.Log(transform.position);
         this.gameObject.tag = "Box";
         gameObject.AddComponent<Rigidbody2D>();
-        GetComponent<RectTransform>().sizeDelta = boxSize;
+        GetComponent<RectTransform>().sizeDelta = boxSize * 100;
         gameObject.AddComponent<Image>();
         GetComponent<Image>().sprite = boxImage;
+        gameObject.AddComponent<BoxCollider2D>();
+        GetComponent<BoxCollider2D>().size = boxSize * 100;
     }
 }
