@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 [RequireComponent(typeof(RectTransform))]
-public class PlatformManager : MonoBehaviour {
+public class MovingPlatformManager : MonoBehaviour {
     public bool isbreaking = false;
     public float breakTime = 2;
     public float recoverTime = 3;
