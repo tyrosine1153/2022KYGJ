@@ -505,6 +505,7 @@ RectTransform:
   m_Children:
   - {fileID: 1432422488}
   - {fileID: 1250659682}
+  - {fileID: 876271266}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -701,6 +702,65 @@ Transform:
   m_Father: {fileID: 877780812}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &876271265
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 876271266}
+  - component: {fileID: 876271267}
+  m_Layer: 5
+  m_Name: Pendulm2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &876271266
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 876271265}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 438717127}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -23.18, y: -9.35}
+  m_SizeDelta: {x: 1, y: 1}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &876271267
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 876271265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed281be1377d78e4c8a6c4d41fd57253, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  invokeTime: 0
+  angle: 90
+  angleVelocity: 2
+  rodImage: {fileID: 21300000, guid: 8ea2e7c13ddfb9342baf58c8353b7262, type: 3}
+  rodLength: 3
+  rodThickness: 0.4
+  bobImage: {fileID: 21300000, guid: 7746596e6e078e344a4d52f7f6631c2a, type: 3}
+  bobSize: {x: 4, y: 2}
+  anchorImage: {fileID: 0}
+  anchorSize: {x: 0, y: 0}
 --- !u!1 &877780811
 GameObject:
   m_ObjectHideFlags: 0
