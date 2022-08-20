@@ -4,11 +4,14 @@ using UnityEngine;
 public enum BGMType
 {
     None = -1,
+
 }
 
 public enum SFXType
 {
     None = -1,
+    Gain = 0,
+    Walk = 1,
 }
 
 public class AudioManager : Singleton<AudioManager>

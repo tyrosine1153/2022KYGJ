@@ -9,13 +9,9 @@ public class ItemManager : MonoBehaviour {
     private BoxCollider2D collider;
     private SpriteRenderer image;
     private void Start() {
-        audio = GetComponent<AudioSource>();
-        audio.clip = Resources.Load<AudioClip>("Audio/Effect/Drinking");
-        collider = GetComponent<BoxCollider2D>();
-        image = GetComponent<SpriteRenderer>();
+
     }
     private void OnCollisionEnter2D(Collision2D collision) {
-        audio.Play();
-        //TODO:
+        AudioManager.Instance.PlaySFX();
     }
 }
