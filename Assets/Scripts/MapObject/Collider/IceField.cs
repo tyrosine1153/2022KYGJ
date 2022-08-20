@@ -13,7 +13,7 @@ public class IceField : MonoBehaviour
             _playerRigidbody ??= other.gameObject.GetComponent<Rigidbody2D>();
             _cachedVelocity = _playerRigidbody.velocity;
             _characterController ??= other.gameObject.GetComponent<CharacterController>();
-            _characterController.isOnIce = true;
+            _characterController.canMove = true;
         }
     }
 
@@ -34,7 +34,7 @@ public class IceField : MonoBehaviour
             _playerRigidbody ??= other.gameObject.GetComponent<Rigidbody2D>();
             _playerRigidbody.velocity = Vector2.zero;
             _characterController ??= other.gameObject.GetComponent<CharacterController>();
-            _characterController.isOnIce = false;
+            _characterController.canMove = false;
         }
     }
 }
