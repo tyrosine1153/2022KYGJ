@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -124,6 +125,15 @@ public class CharacterController : MonoBehaviour
                 StartCoroutine(CoCoolDown(0.5f));
                 _currentCharacterAnimator.SetTrigger(Attack);
             }
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            var npc = other.gameObject.GetComponent<NPC>();
+            npc.Talk();
         }
     }
 

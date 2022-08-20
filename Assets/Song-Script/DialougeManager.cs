@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,6 +20,8 @@ public class DialougeManager : MonoBehaviour
 
     string currnetSentence;
 
+    private Action _onDialogueEnd;
+
     #region #ΩÃ±€≈Ê
     public static DialougeManager Instance;
 
@@ -28,7 +31,7 @@ public class DialougeManager : MonoBehaviour
     }
     #endregion
 
-    public void OnDialogue(string[] lines)
+    public void OnDialogue(string[] lines, Action onDialogueEnd = null)
     {
         sentence.Clear();
 
@@ -60,6 +63,7 @@ public class DialougeManager : MonoBehaviour
             CG.alpha = 0;
             CG.blocksRaycasts = false;
             Cvs.enabled = false;
+            _onDialogueEnd?.Invoke();
         }
     }
 
@@ -86,7 +90,7 @@ public class DialougeManager : MonoBehaviour
 
     public void OnNextClick()
     {
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (Input.GetKeyDown(KeyCode.E))
         {
             if (istyping == false)
             {
