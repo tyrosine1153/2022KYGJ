@@ -21,6 +21,10 @@ public class JumpingPodManager : MonoBehaviour {
         }
         gameObject.AddComponent<Image>();
         gameObject.GetComponent<Image>().sprite = offImage;
+
+        //Child Object setting
+
+        GameObject child = new GameObject("Child");
     }
     private void Update() {
         time += Time.deltaTime;
