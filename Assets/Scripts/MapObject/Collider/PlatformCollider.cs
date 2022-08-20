@@ -17,12 +17,16 @@ public class PlatformCollider : MonoBehaviour {
         manager = this.transform.parent.GetComponent<MovingPlatformManager>();
     }
     private void OnCollisionEnter2D(Collision2D collision) {
-        if (manager.isbreaking) {
-            Invoke("Break", manager.breakTime);
+        if (collision.collider.CompareTag("Player") || collision.collider.CompareTag("Box")) {
+            if (manager.isbreaking) {
+                Invoke("Break", manager.breakTime);
+            }
+            collision.transform.parent = this.transform;
         }
-        collision.transform.parent = this.transform;
     }
     private void OnCollisionExit2D(Collision2D collision) {
-        collision.transform.parent = this.transform.parent.parent;
+        if (collision.collider.CompareTag("Player") || collision.collider.CompareTag("Box")) {
+            collision.transform.parent = this.transform.parent.parent;
+        }
     }
 }
