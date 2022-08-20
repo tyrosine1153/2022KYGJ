@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -41,7 +42,8 @@ public class CharacterController : MonoBehaviour
     private Animator _animator;
     private bool _canJump = true;
     private bool _isStoryMode = true;
-    
+    private bool _isCoolDown = true;
+
     private bool _isDamageIgnoreMode;
     private static readonly int StoryMode = Animator.StringToHash("StoryMode");
     private readonly WaitForSeconds _damageIgnoreTime = new (2f);
@@ -106,6 +108,27 @@ public class CharacterController : MonoBehaviour
         }
     }
 
+    private void OnCollisionStay2D(Collision2D other)
+    {
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            var barricade = other.gameObject.GetComponent<Barricade>();
+            if (barricade && CurrentCharacter == Chracter.TinMan && _isCoolDown)
+            {
+                barricade.Hit();
+                _isCoolDown = false;
+                StartCoroutine(CoCoolDown(0.5f));
+                // 대충 애니메이션
+            }
+        }
+    }
+
+    private IEnumerator CoCoolDown(float time)
+    {
+        yield return new WaitForSeconds(time);
+        _isCoolDown = true;
+    }
+
     public void SetStoryMode(bool isOn)
     {
         _animator.SetBool(StoryMode, isOn);
@@ -125,6 +148,7 @@ public class CharacterController : MonoBehaviour
             Die();
         }
     }
+    
     private IEnumerator IgnoreDamage()
     {
         _isDamageIgnoreMode = true;
