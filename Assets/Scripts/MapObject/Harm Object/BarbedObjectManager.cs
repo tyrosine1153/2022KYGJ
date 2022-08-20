@@ -19,9 +19,6 @@ public class BarbedObjectManager : MonoBehaviour {
             collider.size = size;
         }
     }
-    void Update() {
-        
-    }
     private void OnCollisionEnter2D(Collision2D collision) {
         if (collision.collider.CompareTag("Player")) {
             collision.collider.GetComponent<CharacterController>().GetDamage();

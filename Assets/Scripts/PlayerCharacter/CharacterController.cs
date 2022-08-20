@@ -42,17 +42,17 @@ public class CharacterController : MonoBehaviour
     private bool _canJump = true;
     private bool _isStoryMode = true;
     private bool _isCoolDown = true;
+    private bool _isDamageIgnoreMode = false;
     private bool _isDead = false;
 
-    private bool _isDamageIgnoreMode;
     private static readonly int StoryMode = Animator.StringToHash("StoryMode");
-    private readonly WaitForSeconds _damageIgnoreTime = new (2f);
+    private readonly WaitForSeconds _damageIgnoreTime = new(2f);
     private static readonly int IsWalking = Animator.StringToHash("IsWalking");
     private static readonly int Jump = Animator.StringToHash("Jump");
-    private static readonly int Dead = Animator.StringToHash("Dead");
 
     private static readonly Quaternion DefaultRotation = Quaternion.Euler(0, 0, 0);
     private static readonly Quaternion FlipRotation = Quaternion.Euler(0, 180, 0);
+    private static readonly int Dead = Animator.StringToHash("Dead");
 
     private void Start()
     {
@@ -60,6 +60,7 @@ public class CharacterController : MonoBehaviour
         _animator = GetComponent<Animator>();
         canMove = true;
         CurrentCharacter = Chracter.Dorothy;
+        hp = GameManager.Instance.savedHp;
     }
 
     private void Update()
@@ -71,6 +72,7 @@ public class CharacterController : MonoBehaviour
         {
             _rigidBody.velocity = new Vector2(horizontal * moveSpeed, _rigidBody.velocity.y);
         }
+
         _currentCharacterAnimator.SetBool(IsWalking, Mathf.Abs(horizontal) > 0.2f);
         _currentCharacterAnimator.transform.localRotation = horizontal < 0 ? DefaultRotation : FlipRotation;
 
@@ -101,7 +103,7 @@ public class CharacterController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Ground") && !_canJump)
+        if ((other.gameObject.CompareTag("Ground") && !_canJump) || (other.gameObject.CompareTag("Box") && !_canJump))
         {
             _rigidBody.velocity = Vector2.zero;
             _canJump = true;
@@ -137,32 +139,23 @@ public class CharacterController : MonoBehaviour
 
     public void GetDamage()
     {
-        if(_isDamageIgnoreMode) return;
-        
+        if (_isDamageIgnoreMode) return;
+
         hp--;
         KnockBack();
         StartCoroutine(IgnoreDamage());
-        
+
         if (hp <= 0)
         {
             Die();
         }
-    }
-    
-    private IEnumerator IgnoreDamage()
-    {
-        _isDamageIgnoreMode = true;
-        
-        // Blink Animation
-        yield return _damageIgnoreTime;
-        _isDamageIgnoreMode = false;
     }
 
     public void KnockBack(float power = 5f)
     {
         StartCoroutine(CoKnockBack(power));
     }
-    
+
     private IEnumerator CoKnockBack(float power)
     {
         canMove = false;
@@ -198,6 +191,20 @@ public class CharacterController : MonoBehaviour
                 rigid.AddForce(forceDirection * force, ForceMode2D.Impulse);
             }
         }
+    }
+    
+    private IEnumerator IgnoreDamage()
+    {
+        _isDamageIgnoreMode = true;
+
+        // Todo : Blink Animation
+        yield return _damageIgnoreTime;
+        _isDamageIgnoreMode = false;
+    }
+
+    public void KnockBack()
+    {
+        _rigidBody.AddForce(_rigidBody.velocity.normalized * -1.5f, ForceMode2D.Impulse);
     }
 
     #region Context Menu
@@ -246,4 +253,7 @@ public class CharacterController : MonoBehaviour
 
     #endregion
 }
+
+
+
 
