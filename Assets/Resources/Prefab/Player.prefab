@@ -226,6 +226,14 @@ PrefabInstance:
       propertyPath: m_Bounds.m_Extent.y
       value: 0.5180718
       objectReference: {fileID: 0}
+    - target: {fileID: -5681097417457427939, guid: 76d8cd66ce7b9e14588b25de95d109d2, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -5653871477555713271, guid: 76d8cd66ce7b9e14588b25de95d109d2, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: -2978984936461578496, guid: 76d8cd66ce7b9e14588b25de95d109d2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.4394404
@@ -249,6 +257,18 @@ PrefabInstance:
     - target: {fileID: -598953383116867924, guid: 76d8cd66ce7b9e14588b25de95d109d2, type: 3}
       propertyPath: m_Bounds.m_Extent.y
       value: 1.5076234
+      objectReference: {fileID: 0}
+    - target: {fileID: 38783524700085769, guid: 76d8cd66ce7b9e14588b25de95d109d2, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1443463998787485666, guid: 76d8cd66ce7b9e14588b25de95d109d2, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2764113074555238907, guid: 76d8cd66ce7b9e14588b25de95d109d2, type: 3}
+      propertyPath: m_Color.a
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3378957813890760605, guid: 76d8cd66ce7b9e14588b25de95d109d2, type: 3}
       propertyPath: m_Bounds.m_Center.x
@@ -293,6 +313,10 @@ PrefabInstance:
     - target: {fileID: 4257508509235537429, guid: 76d8cd66ce7b9e14588b25de95d109d2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 6249082649868581266, guid: 76d8cd66ce7b9e14588b25de95d109d2, type: 3}
+      propertyPath: m_Color.a
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6570653344245557668, guid: 76d8cd66ce7b9e14588b25de95d109d2, type: 3}
       propertyPath: m_Bounds.m_Center.x
@@ -687,6 +711,10 @@ PrefabInstance:
     - target: {fileID: -8653719598885068355, guid: 551efea051cdfb044b1d2b46972bc9bd, type: 3}
       propertyPath: m_Name
       value: TinMan
+      objectReference: {fileID: 0}
+    - target: {fileID: -8653719598885068355, guid: 551efea051cdfb044b1d2b46972bc9bd, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -7552582706839291426, guid: 551efea051cdfb044b1d2b46972bc9bd, type: 3}
       propertyPath: m_RootOrder
