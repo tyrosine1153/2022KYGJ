@@ -27,12 +27,12 @@ public class MovingPlatformManager : PlatformManager {
             rect = platform.GetComponent<RectTransform>();
             rect.localScale = Vector3.one;
             rect.localPosition = Vector2.zero;
-            rect.sizeDelta = platformSize;
+            rect.sizeDelta = platformSize * 100;
         }
         platform.AddComponent<BoxCollider2D>();
         {
             BoxCollider2D collider = platform.GetComponent<BoxCollider2D>();
-            collider.size = platformSize;
+            collider.size = platformSize * 100;
         }
         platform.AddComponent<Rigidbody2D>();
         {
@@ -51,8 +51,8 @@ public class MovingPlatformManager : PlatformManager {
         velocity = unitVector[direction];
     }
     protected override void OnUpdate() {
-        rect.localPosition = Vector2.ClampMagnitude(rect.localPosition, length / 2);
-        if (rect.localPosition.magnitude >= length / 2) {
+        rect.localPosition = Vector2.ClampMagnitude(rect.localPosition, length * 100 / 2);
+        if (rect.localPosition.magnitude >= length * 100 / 2) {
             velocity = -velocity;
         }
         rigid.velocity = velocity * speed;

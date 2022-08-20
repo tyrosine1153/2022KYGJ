@@ -28,13 +28,13 @@ public class ThornyScaffoldManager : MonoBehaviour {
         onPos = new Vector3(old_position.x, old_position.y + gap, old_position.z);
         rect = GetComponent<RectTransform>();
         rect.localPosition = isOn ? onPos : offPos;
-        rect.sizeDelta = isOn ? onSize : offSize;
+        rect.sizeDelta = isOn ? onSize * 100 : offSize * 100;
         this.gameObject.AddComponent<Image>();
         image = GetComponent<Image>();
         image.sprite = isOn ? onImage : offImage;
         this.gameObject.AddComponent<BoxCollider2D>();
         collider = GetComponent<BoxCollider2D>();
-        collider.size = isOn? onSize : offSize;
+        collider.size = isOn? onSize * 100 : offSize * 100;
         Invoke("Active", invokeTime);
     }
     private void Active() {

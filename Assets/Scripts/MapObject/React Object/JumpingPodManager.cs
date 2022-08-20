@@ -17,39 +17,24 @@ public class JumpingPodManager : MonoBehaviour {
         gameObject.GetComponent<RectTransform>().sizeDelta = offSize;
         gameObject.AddComponent<BoxCollider2D>(); {
             BoxCollider2D collider = GetComponent<BoxCollider2D>();
-            collider.size = offSize;
+            collider.size = offSize * 100;
         }
         gameObject.AddComponent<Image>();
         gameObject.GetComponent<Image>().sprite = offImage;
-        //Child Object Setting
-        GameObject child = new GameObject("JumpingPod Trigger");
-        child.transform.parent = this.transform;
-        child.AddComponent<RectTransform>(); {
-            RectTransform rect = child.GetComponent<RectTransform>();
-            rect.localScale = Vector3.one;
-            rect.localPosition = new Vector2(
-                0,
-                onSize.y / 2
-            ) ;
-        }
-        child.AddComponent<BoxCollider2D>(); {
-            BoxCollider2D collider = child.GetComponent<BoxCollider2D>();
-            collider.isTrigger = true;
-            collider.size = new Vector2(
-                onSize.x,
-                onSize.y - offSize.y
-            );
-        }
-        child.AddComponent<Image>(); {
-            Image image = child.GetComponent<Image>();
-            image.sprite = onImage;
-            image.enabled = false;
-        }
     }
     private void Update() {
         time += Time.deltaTime;
         if (time >= disabledTime) {
-            transform.GetChild(0).GetComponent<Image>().enabled = false;
+            GetComponent<Image>().sprite = offImage;
+        }
+    }
+    private void OnCollisionEnter2D(Collision2D collision) {
+        if ((collision.collider.CompareTag("Player") || collision.collider.CompareTag("Box")) && time >= disabledTime) {
+            if (collision.collider.GetComponent<Rigidbody2D>() != null) {
+                time = 0;
+                collision.collider.GetComponent<Rigidbody2D>().AddForce(Vector2.up * force, ForceMode2D.Impulse);
+                GetComponent<Image>().sprite = onImage;
+            }
         }
     }
 }
