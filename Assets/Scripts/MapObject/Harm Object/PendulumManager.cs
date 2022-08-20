@@ -17,7 +17,7 @@ public class PendulumManager : MonoBehaviour {
 
     private float time; private bool active = false;
     void Start() {
-        this.gameObject.name = "Pendulum Parent";
+        gameObject.name = "[Obstacle] Pendulum";
         if (anchorImage != null) {
             gameObject.AddComponent<Image>(); {
                 Image image = GetComponent<Image>();
@@ -54,10 +54,9 @@ public class PendulumManager : MonoBehaviour {
             }
             bob.AddComponent<BoxCollider2D>(); {
                 BoxCollider2D collider = bob.GetComponent<BoxCollider2D>();
-                collider.isTrigger = true;
                 collider.size = bobSize;
             }
-            bob.AddComponent<PendulumTrigger>();
+            bob.AddComponent<PendulumCollider>();
         }
         Invoke("Actvie", invokeTime);
     }
