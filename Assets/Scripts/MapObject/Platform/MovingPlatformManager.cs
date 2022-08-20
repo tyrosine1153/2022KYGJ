@@ -20,6 +20,7 @@ public class MovingPlatformManager : PlatformManager {
     protected override void OnStart() {
         gameObject.name = "[Platform] Moving Platform";
         GameObject platform = new GameObject("Platform");
+        platform.tag = "Ground";
         platform.transform.parent = this.transform;
         platform.SetActive(false);
         platform.AddComponent<RectTransform>();

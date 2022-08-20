@@ -24,7 +24,6 @@ public class DoorManager : MonoBehaviour {
     public void Open() { isOpen = true; time = time >= 3 ? 0 : time; isActing = true; }
     public void Close() { isOpen = false; time = time >= 3 ? 0 : time; isActing = true; }
     void Update() {
-        if (Input.GetKeyDown(KeyCode.Space)) { isOpen = !isOpen; time = 0; }
         time = Mathf.Clamp(time + Time.deltaTime, 0, 3);
         isActing = time < 3;
         if (direction == Direction.Up) {
