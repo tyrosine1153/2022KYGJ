@@ -43,6 +43,7 @@ public class CharacterController : MonoBehaviour
     private bool _canJump = true;
     private bool _isStoryMode = true;
     private bool _isCoolDown = true;
+    private bool _isDead = false;
 
     private bool _isDamageIgnoreMode;
     private static readonly int StoryMode = Animator.StringToHash("StoryMode");
@@ -158,7 +159,7 @@ public class CharacterController : MonoBehaviour
         _isDamageIgnoreMode = false;
     }
 
-    public void KnockBack(float power = 1.5f)
+    public void KnockBack(float power = 5f)
     {
         StartCoroutine(CoKnockBack(power));
     }
@@ -166,14 +167,21 @@ public class CharacterController : MonoBehaviour
     private IEnumerator CoKnockBack(float power)
     {
         canMove = false;
-        _rigidBody.velocity = _rigidBody.velocity.normalized * -1.5f * power;
+        var direction = _rigidBody.velocity.magnitude < 0.1f ? Vector2.right : _rigidBody.velocity.normalized;
+        direction += Vector2.up * -0.5f;
+        _rigidBody.velocity = direction * -power;
         yield return new WaitForSeconds(0.3f);
         canMove = true;
     }
 
     private void Die()
     {
+        if(_isDead) return;
+        _isDead = true;
+        
         _currentCharacterAnimator.SetTrigger(Dead);
+        _canJump = false;
+        canMove = false;
     }
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
