@@ -29,33 +29,32 @@ public class DoorManager : MonoBehaviour {
         if (direction == Direction.Up) {
             if (isOpen && time < 3) {
                 //닫는 연출
-                Debug.Log("닫는 연출");
-                transform.position = new Vector2(old_pos.x, old_pos.y + remap(time, 0, 3f, 0, 4f));
-                collider.offset = new Vector2(0, remap(time, 0, actTime, 0, -0.5f));
-                collider.size = new Vector2(1, remap(time, 0, actTime, 1, 0));
+                transform.position = new Vector2(old_pos.x, old_pos.y + remap(time, 0, actTime, 0, 4f));
+                collider.offset = new Vector2(0, remap(time, 0, actTime, 0, -0.7f));
+                collider.size = new Vector2(1.2f, remap(time, 0, actTime, 4, 0));
             }
             if (!isOpen && time < 3) {
                 //여는 연출
                 Debug.Log("여는 연출");
-                transform.position = new Vector2(old_pos.x, old_pos.y + remap(time, 0, 3f, 4, 0));
-                collider.offset = new Vector2(0, remap(time, 0, actTime, -0.5f, 0));
-                collider.size = new Vector2(1, remap(time, 0, actTime, 0, 1));
+                transform.position = new Vector2(old_pos.x, old_pos.y + remap(time, 0, actTime, 4, 0));
+                collider.offset = new Vector2(0, remap(time, 0, actTime, -0.7f, 0));
+                collider.size = new Vector2(1.2f, remap(time, 0, actTime, 0, 4));
 
             }
         } else {
             if (isOpen && time < 3) {
                 //닫는 연출
                 Debug.Log("닫는 연출");
-                transform.position = new Vector2(old_pos.x, old_pos.y - remap(time, 0, 3f, 0, 4f));
-                collider.offset = new Vector2(0, remap(time, 0, actTime, 0, 0.5f));
-                collider.size = new Vector2(1, remap(time, 0, actTime, 1, 0));
+                transform.position = new Vector2(old_pos.x, old_pos.y - remap(time, 0, actTime, 0, 4f));
+                collider.offset = new Vector2(0, remap(time, 0, actTime, 0, 0.7f));
+                collider.size = new Vector2(1.2f, remap(time, 0, actTime, 4, 0));
             }
             if (!isOpen && time < 3) {
                 //여는 연출
                 Debug.Log("여는 연출");
-                transform.position = new Vector2(old_pos.x, old_pos.y - remap(time, 0, 3f, 4, 0));
-                collider.offset = new Vector2(0, remap(time, 0, actTime, 0.5f, 0));
-                collider.size = new Vector2(1, remap(time, 0, actTime, 0, 1));
+                transform.position = new Vector2(old_pos.x, old_pos.y - remap(time, 0, actTime, 4, 0));
+                collider.offset = new Vector2(0, remap(time, 0, actTime, 0.7f, 0));
+                collider.size = new Vector2(1.2f, remap(time, 0, actTime, 0, 4));
 
             }
         }
