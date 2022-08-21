@@ -1195,9 +1195,9 @@ MonoBehaviour:
   - {fileID: 8351935545045900417}
   - {fileID: 8351935545851305815}
   - {fileID: 8351935544976351944}
-  panel: {fileID: 0}
-  textMeshProUGUI: {fileID: 0}
-  button: {fileID: 0}
+  panel: {fileID: 8686570846428238210}
+  textMeshProUGUI: {fileID: 6646714974068655000}
+  button: {fileID: 554564429519572634}
 --- !u!1 &8351935544227320181
 GameObject:
   m_ObjectHideFlags: 0
