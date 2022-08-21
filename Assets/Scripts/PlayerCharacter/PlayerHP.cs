@@ -1,11 +1,14 @@
-using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerHP : MonoBehaviour
 {
     public List<Image> HP_Img = new List<Image>();
+    [SerializeField] private GameObject panel;
+    [SerializeField] private TextMeshProUGUI textMeshProUGUI;
+    [SerializeField] private Button button;
 
     void Update()
     {

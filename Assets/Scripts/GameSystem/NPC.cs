@@ -26,7 +26,9 @@ public class NPC : MonoBehaviour
                 DialougeManager.Instance.OnDialogue(StoryScripts.NPCTalk[scriptId], () =>
                 {
                     // 퀘스트 UI
+                    
                     var s = StoryScripts.QuestReward[1];
+                    gameObject.SetActive(false);
                     isTalking = false;
                 });
                 break;
@@ -34,9 +36,21 @@ public class NPC : MonoBehaviour
                 DialougeManager.Instance.OnDialogue(StoryScripts.NPCTalk[scriptId], () =>
                 {
                     GameManager.Instance.Quest.OpenQuest(2);
+                    gameObject.SetActive(false);
                     isTalking = false;
                 });
                 break;
+            case 4:
+                GameManager.Instance.Quest.ClearQuest(2);
+                DialougeManager.Instance.OnDialogue(StoryScripts.NPCTalk[scriptId], () =>
+                {
+                    // 퀘스트 UI
+                    var s = StoryScripts.QuestReward[2];
+                    gameObject.SetActive(false);
+                    isTalking = false;
+                });
+                break;
+            
         }
     }
 }

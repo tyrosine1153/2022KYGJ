@@ -42,6 +42,7 @@ public class DialougeManager : MonoBehaviour
         }
         CG.alpha = 1;
         CG.blocksRaycasts = true;
+        _onDialogueEnd = onDialogueEnd;
 
         NextSentence();
     }
