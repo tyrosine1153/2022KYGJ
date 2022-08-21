@@ -9,7 +9,10 @@ public class Stage : MonoBehaviour
     {
         var player = FindObjectOfType<CharacterController>();
         player.transform.position = startPoint.position;
-        DialougeManager.Instance.OnDialogue(StoryScripts.StageStart[0]);
+        if (GameManager.Instance.savedStageId == 1)
+        {
+            DialougeManager.Instance.OnDialogue(StoryScripts.StageStart[0]);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)

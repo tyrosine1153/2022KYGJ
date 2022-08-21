@@ -32,14 +32,14 @@ public class GameManager : Singleton<GameManager>
     public void GameStart()
     {
         LoadData();
-        SceneManagerEx.Instance.LoadScene((SceneType)savedStageId + 1);
     }
 
     public void StageClear()
     {
         if (savedStageId >= 5)
         {
-            // Todo : GameClear
+            SceneManagerEx.Instance.LoadScene(SceneType.Main);
+
             return;
         }
 
