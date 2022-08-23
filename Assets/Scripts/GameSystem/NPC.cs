@@ -1,56 +1,48 @@
 using UnityEngine;
 
+public enum ScriptType
+{
+    Normal,
+    QuestOpen,
+    QuestEnd,
+}
+
 public class NPC : MonoBehaviour
 {
     public int scriptId;
+    public ScriptType ScriptType;
     private bool isTalking;
 
-    public void Talk()
+    public void TalkStart()
     {
         if (isTalking) return;
         isTalking = true;
 
-        switch (scriptId)
+        switch (ScriptType)
         {
-            case 1:
-                DialougeManager.Instance.OnDialogue(StoryScripts.NPCTalk[scriptId], () =>
+            case ScriptType.QuestOpen:
+                DialougeManager.Instance.OnDialogue(StoryScripts.QuestStart[scriptId], () =>
                 {
-                    GameManager.Instance.Quest.OpenQuest(1);
-                    // 퀘스트 ui
-                    gameObject.SetActive(false);
-                    isTalking = false;
+                    GameManager.Instance.Quest.OpenQuest(scriptId);
+                    TalkEnd();
                 });
                 break;
-            case 2:
-                GameManager.Instance.Quest.ClearQuest(1);
-                DialougeManager.Instance.OnDialogue(StoryScripts.NPCTalk[scriptId], () =>
+            case ScriptType.QuestEnd:
+                DialougeManager.Instance.OnDialogue(StoryScripts.QuestEnd[scriptId], () =>
                 {
-                    // 퀘스트 UI
-                    
-                    var s = StoryScripts.QuestReward[1];
-                    gameObject.SetActive(false);
-                    isTalking = false;
+                    GameManager.Instance.Quest.ClearQuest(scriptId);
+                    TalkEnd();
                 });
                 break;
-            case 3:
-                DialougeManager.Instance.OnDialogue(StoryScripts.NPCTalk[scriptId], () =>
-                {
-                    GameManager.Instance.Quest.OpenQuest(2);
-                    gameObject.SetActive(false);
-                    isTalking = false;
-                });
+            case ScriptType.Normal:
+                DialougeManager.Instance.OnDialogue(StoryScripts.NormalNPCTalk[scriptId], TalkEnd);
                 break;
-            case 4:
-                GameManager.Instance.Quest.ClearQuest(2);
-                DialougeManager.Instance.OnDialogue(StoryScripts.NPCTalk[scriptId], () =>
-                {
-                    // 퀘스트 UI
-                    var s = StoryScripts.QuestReward[2];
-                    gameObject.SetActive(false);
-                    isTalking = false;
-                });
-                break;
-            
         }
+    }
+
+    private void TalkEnd()
+    {
+        gameObject.SetActive(false);
+        isTalking = false;
     }
 }

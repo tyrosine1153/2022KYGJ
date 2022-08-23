@@ -2,13 +2,10 @@ using UnityEngine;
 
 public class Stage : MonoBehaviour
 {
-    [SerializeField] private Transform startPoint;
     private bool _isStageClear;
 
     private void Start()
     {
-        var player = FindObjectOfType<CharacterController>();
-        player.transform.position = startPoint.position;
         if (GameManager.Instance.savedStageId == 1)
         {
             DialougeManager.Instance.OnDialogue(StoryScripts.StageStart[0]);
@@ -19,15 +16,9 @@ public class Stage : MonoBehaviour
     {
         if (other.CompareTag("Player") && !_isStageClear)
         {
-            other.tag = "Box";
-            _isStageClear = true;
-            GameManager.Instance.StageClear();
-        }
-
-        if (other.CompareTag("Player"))
-        {
-            if (GameManager.Instance.Quest.QuestProgress[2])
+            if (GameManager.Instance.Quest.QuestProgress[GameManager.Instance.savedQuestId - 1])
             {
+                _isStageClear = true;
                 GameManager.Instance.StageClear();
             }
             else

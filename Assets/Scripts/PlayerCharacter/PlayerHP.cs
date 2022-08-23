@@ -1,59 +1,44 @@
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerHP : MonoBehaviour
+public class PlayerHP : Singleton<PlayerHP>
 {
-    public List<Image> HP_Img = new List<Image>();
+    [SerializeField] private Image[] hpImg;
+    [SerializeField] private GameObject diePanel;
+    [SerializeField] private Button restartBtn;
     [SerializeField] private GameObject panel;
     [SerializeField] private TextMeshProUGUI textMeshProUGUI;
     [SerializeField] private Button button;
+    private TextMeshProUGUI _questText;
 
-    void Update()
+    public string QuestName
     {
-        HP_Check();
+        get => _questText.text;
+        set => _questText.text = value;
     }
 
-    void HP_Check()
+    public int Hp
     {
-        var character = FindObjectOfType<CharacterController>().hp;
-        Debug.Log(character);
-
-        switch(character)
+        set
         {
-            case 0:
-                break;
-
-            case 1:
-                HP_Img[0].enabled = true;
-                HP_Img[1].enabled = false;
-                HP_Img[2].enabled = false;
-                HP_Img[3].enabled = false;
-                break;
-
-            case 2:
-                HP_Img[0].enabled = true;
-                HP_Img[1].enabled = true;
-                HP_Img[2].enabled = false;
-                HP_Img[3].enabled = false;
-                break;
-
-            case 3:
-                HP_Img[0].enabled = true;
-                HP_Img[1].enabled = true;
-                HP_Img[2].enabled = true;
-                HP_Img[3].enabled = false;
-                break;
-
-            case 4:
-                HP_Img[0].enabled = true;
-                HP_Img[1].enabled = true;
-                HP_Img[2].enabled = true;
-                HP_Img[3].enabled = true;
-                break;
-
-
+            for (int i = 0; i < hpImg.Length; i++)
+            {
+                hpImg[i].enabled = i < value;
+            }
         }
+    }
+
+    public void Show(string description)
+    {
+        textMeshProUGUI.text = description;
+        panel.SetActive(true);
+        button.onClick.AddListener(() => { panel.SetActive(false); });
+    }
+
+    public void ShowOnDie()
+    {
+        diePanel.SetActive(true);
+        restartBtn.onClick.AddListener(() => { SceneManagerEx.Instance.LoadScene(SceneType.Main); });
     }
 }

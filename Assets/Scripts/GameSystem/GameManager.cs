@@ -5,20 +5,20 @@ public class GameManager : Singleton<GameManager>
 {
     public class StoryQuest
     {
-        public string questName;
-    
-        public Dictionary<int, bool> QuestProgress = new();
+        public readonly Dictionary<int, bool> QuestProgress = new();
 
         public void OpenQuest(int id)
         {
-            questName = StoryScripts.QuestNames[id];
             QuestProgress[id] = false;
+            PlayerHP.Instance.Show(StoryScripts.QuestNames[id]);
+            PlayerHP.Instance.QuestName = StoryScripts.QuestNames[id];
         }
 
         public void ClearQuest(int id)
         {
-            questName = "";
             QuestProgress[id] = true;
+            PlayerHP.Instance.Show(StoryScripts.QuestReward[id]);
+            PlayerHP.Instance.QuestName = "";
         }
     }
     
@@ -47,6 +47,11 @@ public class GameManager : Singleton<GameManager>
         SaveData();
         SceneManagerEx.Instance.LoadScene((SceneType)savedStageId + 1);
     }
+
+    public void GameOver()
+    {
+        
+    }
     
     private void SaveData()
     {
@@ -57,8 +62,8 @@ public class GameManager : Singleton<GameManager>
 
     private void LoadData()
     {
-        savedStageId = PlayerPrefs.GetInt("STAGE_ID", 1);
-        savedHp = PlayerPrefs.GetInt("HP", 4);
-        savedQuestId = PlayerPrefs.GetInt("QUEST_ID", 0);
+        savedStageId = 1;
+        savedHp = 4;
+        savedQuestId = 0;
     }
 }

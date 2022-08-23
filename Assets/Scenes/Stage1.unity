@@ -1429,7 +1429,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3940880099337603816, guid: 47e1d6aff21c030499362afbcb007d17, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -17.63
+      value: -17.51
       objectReference: {fileID: 0}
     - target: {fileID: 3940880099337603816, guid: 47e1d6aff21c030499362afbcb007d17, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1462,6 +1462,30 @@ PrefabInstance:
     - target: {fileID: 3940880099337603816, guid: 47e1d6aff21c030499362afbcb007d17, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3940880099337603817, guid: 47e1d6aff21c030499362afbcb007d17, type: 3}
+      propertyPath: m_Size.x
+      value: 3.7795053
+      objectReference: {fileID: 0}
+    - target: {fileID: 3940880099337603817, guid: 47e1d6aff21c030499362afbcb007d17, type: 3}
+      propertyPath: m_Size.y
+      value: 0.45336437
+      objectReference: {fileID: 0}
+    - target: {fileID: 3940880099337603817, guid: 47e1d6aff21c030499362afbcb007d17, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.005743265
+      objectReference: {fileID: 0}
+    - target: {fileID: 3940880099337603817, guid: 47e1d6aff21c030499362afbcb007d17, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.019564152
+      objectReference: {fileID: 0}
+    - target: {fileID: 3940880099337603817, guid: 47e1d6aff21c030499362afbcb007d17, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 4.74
+      objectReference: {fileID: 0}
+    - target: {fileID: 3940880099337603817, guid: 47e1d6aff21c030499362afbcb007d17, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 0.48
       objectReference: {fileID: 0}
     - target: {fileID: 3940880099337603819, guid: 47e1d6aff21c030499362afbcb007d17, type: 3}
       propertyPath: m_Constraints
@@ -1600,11 +1624,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4d9c453cec83ed4382739157a0731dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dontDestroyOnLoad: 0
   HP_Img:
   - {fileID: 8351935544211590542}
   - {fileID: 8351935544211590541}
   - {fileID: 8351935544211590540}
   - {fileID: 8351935544211590539}
+  Die_Panel: {fileID: 0}
+  Restart_Btn: {fileID: 0}
+  questText: {fileID: 0}
   panel: {fileID: 0}
   textMeshProUGUI: {fileID: 0}
   button: {fileID: 0}

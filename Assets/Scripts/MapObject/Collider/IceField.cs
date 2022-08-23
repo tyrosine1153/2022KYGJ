@@ -11,7 +11,7 @@ public class IceField : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             _playerRigidbody ??= other.gameObject.GetComponent<Rigidbody2D>();
-            _cachedVelocity = _playerRigidbody.velocity;
+            _cachedVelocity = _playerRigidbody.velocity.normalized * 5f;
             _characterController ??= other.gameObject.GetComponent<CharacterController>();
             _characterController.canMove = false;
         }

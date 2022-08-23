@@ -133,7 +133,7 @@ public class CharacterController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E))
         {
             var npc = other.gameObject.GetComponent<NPC>();
-            npc.Talk();
+            npc.TalkStart();
         }
     }
 
@@ -186,6 +186,8 @@ public class CharacterController : MonoBehaviour
         _currentCharacterAnimator.SetTrigger(Dead);
         _canJump = false;
         canMove = false;
+        
+        FindObjectOfType<PlayerHP>().ShowOnDie();
     }
 
     private void OnControllerColliderHit(ControllerColliderHit hit)
