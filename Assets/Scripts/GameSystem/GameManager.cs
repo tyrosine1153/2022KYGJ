@@ -10,15 +10,15 @@ public class GameManager : Singleton<GameManager>
         public void OpenQuest(int id)
         {
             QuestProgress[id] = false;
-            PlayerHP.Instance.Show(StoryScripts.QuestNames[id]);
-            PlayerHP.Instance.QuestName = StoryScripts.QuestNames[id];
+            InGameCanvas.Instance.Show(StoryScripts.QuestNames[id]);
+            InGameCanvas.Instance.QuestName = StoryScripts.QuestNames[id];
         }
 
         public void ClearQuest(int id)
         {
             QuestProgress[id] = true;
-            PlayerHP.Instance.Show(StoryScripts.QuestReward[id]);
-            PlayerHP.Instance.QuestName = "";
+            InGameCanvas.Instance.Show(StoryScripts.QuestReward[id]);
+            InGameCanvas.Instance.QuestName = "";
         }
     }
     
@@ -26,8 +26,24 @@ public class GameManager : Singleton<GameManager>
     public int savedStageId;
     public int savedHp;
     public int savedQuestId;
-    
-    public StoryQuest Quest = new();
+
+    public CharacterController character;
+    private bool _isGamePlaying;
+    private int _hp;
+    public int Hp
+    {
+        get => _hp;
+        set
+        {
+            _hp = Mathf.Min(value, 5);
+            if (_hp <= 0)
+            {
+                GameOver();
+            }
+        }
+    }
+
+    public readonly StoryQuest Quest = new();
 
     public void GameStart()
     {
@@ -48,9 +64,13 @@ public class GameManager : Singleton<GameManager>
         SceneManagerEx.Instance.LoadScene((SceneType)savedStageId + 1);
     }
 
-    public void GameOver()
+    private void GameOver()
     {
-        
+        if(!_isGamePlaying) return;
+        _isGamePlaying = false;
+        character.Die();
+        // Todo : Delay
+        InGameCanvas.Instance.ShowOnDie();
     }
     
     private void SaveData()

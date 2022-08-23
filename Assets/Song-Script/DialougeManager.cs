@@ -1,102 +1,65 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
 
-public class DialougeManager : MonoBehaviour
+public class DialougeManager : Singleton<DialougeManager>
 {
-    public TextMeshProUGUI sentence_txt;
-    public TextMeshProUGUI Name_Txt;
-    public CanvasGroup CG;
-    public Canvas Cvs;
-    public Queue<string> sentence = new Queue<string>();
-    public GameObject Arrow;
+    public TextMeshProUGUI sentenceText;
+    public CanvasGroup canvasGroup;
+    public Canvas canvas;
+    public readonly Queue<string> SentenceQueue = new Queue<string>();
+    public GameObject arrow;
 
     [Header("타이핑 관련")]
-    [HideInInspector] public bool istyping;
-    public float Typing_Time = 0.05f;
+    public float typingTime = 0.05f;
 
-    string currnetSentence;
+    private string _currentSentence;
 
     private Action _onDialogueEnd;
 
-    #region #싱글톤
-    public static DialougeManager Instance;
-
-    private void Awake()
-    {
-        Instance = this;
-    }
-    #endregion
-
     public void OnDialogue(string[] lines, Action onDialogueEnd = null)
     {
-        sentence.Clear();
+        SentenceQueue.Clear();
 
         foreach (string line in lines)
         {
-            sentence.Enqueue(line);
-            istyping = true;
+            SentenceQueue.Enqueue(line);
         }
-        CG.alpha = 1;
-        CG.blocksRaycasts = true;
+        canvas.enabled = true;
+        canvasGroup.alpha = 1;
+        canvasGroup.blocksRaycasts = true;
         _onDialogueEnd = onDialogueEnd;
-
-        NextSentence();
+        
+        // Todo:
+        canvasGroup.alpha = 0;
+        canvasGroup.blocksRaycasts = false;
+        canvas.enabled = false;
+        _onDialogueEnd?.Invoke();
     }
 
-    public void NextSentence()
-    {
-        if (sentence.Count != 0)
+    private IEnumerator Typing()
+    { 
+        var charArray = SentenceQueue.Dequeue().ToCharArray();
+        var sb = new StringBuilder();
+        
+        foreach (var c in charArray)
         {
-            //#대화가 시작했을 때
-            currnetSentence = sentence.Dequeue();
-            Cvs.enabled = true;
-            CG.alpha = 1;
-            istyping = true;
-            StartCoroutine(Typing(currnetSentence));
-        }
-        else
-        {
-            //#모든 대화로그가 끝났을 때
-            CG.alpha = 0;
-            CG.blocksRaycasts = false;
-            Cvs.enabled = false;
-            _onDialogueEnd?.Invoke();
+            sb.Append(c);
+            sentenceText.text = sb.ToString();
+            yield return new WaitForSeconds(typingTime);
         }
     }
 
-    IEnumerator Typing(string line)
+    private IEnumerator CoUpdate()
     {
-        sentence_txt.text = "";
-
-        foreach (char letter in line.ToCharArray())
+        while (true)
         {
-            sentence_txt.text += letter;
-            yield return new WaitForSeconds(Typing_Time);
-        }
-
-        Arrow.SetActive(true);
-    }
-
-    void Update()
-    {
-        if (sentence_txt.text.Equals(currnetSentence))
-            istyping = false;
-
-        OnNextClick();
-    }
-
-    public void OnNextClick()
-    {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            if (istyping == false)
+            if (Input.GetKeyDown(KeyCode.E))
             {
-                NextSentence();
-                Arrow.SetActive(false);
+                // Todo:
             }
         }
     }

@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerHP : Singleton<PlayerHP>
+public class InGameCanvas : Singleton<InGameCanvas>
 {
     [SerializeField] private Image[] hpImg;
     [SerializeField] private GameObject diePanel;

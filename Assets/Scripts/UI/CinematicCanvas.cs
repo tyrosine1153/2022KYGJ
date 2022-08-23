@@ -36,7 +36,6 @@ public class CinematicCanvas : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.E))
             {
                 NextDialogue();
-                Debug.Log("E");
                 yield return new WaitForSeconds(0.5f);
             }
             yield return null;

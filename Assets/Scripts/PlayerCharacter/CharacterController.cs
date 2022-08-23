@@ -136,6 +136,23 @@ public class CharacterController : MonoBehaviour
             npc.TalkStart();
         }
     }
+    
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        if (hit.gameObject.CompareTag("Box") || hit.gameObject.CompareTag("Mirror"))
+        {
+            const float force = 5;
+            var rigid = hit.collider.GetComponent<Rigidbody2D>();
+            if (rigid != null)
+            {
+                Vector2 forceDirection = hit.gameObject.transform.position - transform.position;
+                forceDirection.y = 0;
+                forceDirection.Normalize();
+
+                rigid.AddForce(forceDirection * force, ForceMode2D.Impulse);
+            }
+        }
+    }
 
     private IEnumerator CoCoolDown(float time)
     {
@@ -153,14 +170,17 @@ public class CharacterController : MonoBehaviour
     {
         if (_isDamageIgnoreMode) return;
 
-        hp--;
+        GameManager.Instance.Hp--;
         KnockBack();
         StartCoroutine(IgnoreDamage());
+    }
 
-        if (hp <= 0)
-        {
-            Die();
-        }
+    private IEnumerator IgnoreDamage()
+    {
+        _isDamageIgnoreMode = true;
+        _currentCharacterAnimator.SetTrigger(Blink);
+        yield return _damageIgnoreTime;
+        _isDamageIgnoreMode = false;
     }
 
     public void KnockBack(float power = 5f)
@@ -178,7 +198,7 @@ public class CharacterController : MonoBehaviour
         canMove = true;
     }
 
-    private void Die()
+    public void Die()
     {
         if(_isDead) return;
         _isDead = true;
@@ -186,38 +206,6 @@ public class CharacterController : MonoBehaviour
         _currentCharacterAnimator.SetTrigger(Dead);
         _canJump = false;
         canMove = false;
-        
-        FindObjectOfType<PlayerHP>().ShowOnDie();
-    }
-
-    private void OnControllerColliderHit(ControllerColliderHit hit)
-    {
-        if (hit.gameObject.CompareTag("Box") || hit.gameObject.CompareTag("Mirror"))
-        {
-            const float force = 5;
-            var rigid = hit.collider.GetComponent<Rigidbody2D>();
-            if (rigid != null)
-            {
-                Vector2 forceDirection = hit.gameObject.transform.position - transform.position;
-                forceDirection.y = 0;
-                forceDirection.Normalize();
-
-                rigid.AddForce(forceDirection * force, ForceMode2D.Impulse);
-            }
-        }
-    }
-    
-    private IEnumerator IgnoreDamage()
-    {
-        _isDamageIgnoreMode = true;
-        _currentCharacterAnimator.SetTrigger(Blink);
-        yield return _damageIgnoreTime;
-        _isDamageIgnoreMode = false;
-    }
-
-    public void KnockBack()
-    {
-        _rigidBody.AddForce(_rigidBody.velocity.normalized * -1.5f, ForceMode2D.Impulse);
     }
 
     #region Context Menu
@@ -256,12 +244,6 @@ public class CharacterController : MonoBehaviour
     public void SetStoryModeOff()
     {
         SetStoryMode(false);
-    }
-
-    [ContextMenu("Set Die")]
-    public void SetDie()
-    {
-        Die();
     }
 
     #endregion
