@@ -47,7 +47,8 @@ public class MovingSawManager : MonoBehaviour {
             }
             saw.AddComponent<Image>(); {
                 Image image = saw.GetComponent<Image>();
-                image.sprite = sawImage;
+                
+                image.sprite = sawImage == null ? Resources.Load<Sprite>("") :  sawImage;
             }
             saw.AddComponent<BoxCollider2D>(); {
                 BoxCollider2D collider = saw.GetComponent<BoxCollider2D>();
